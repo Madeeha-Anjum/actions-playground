@@ -1,0 +1,12 @@
+[
+  {
+    "longUrl": "http://google.com",
+    "shortUrl": "http://localhost:8000/123",
+    "id": "123"
+  },
+  {
+    "longUrl": "http://ualberta.ca",
+    "shortUrl": "http://localhost:8000/456",
+    "id": "456"
+  }
+]
