@@ -5,8 +5,9 @@ import Entry from "../models/entry.js";
 const SHORT_URL_BASE = "http:/localhost:3000";
 
 console.log("Connecting to database...");
-await Database.connect();
+await Database.resetDatabase();
 await Database.resetTable();
+await Database.connect();
 
 async function shutdown() {
   console.log("Disconnecting from database...");

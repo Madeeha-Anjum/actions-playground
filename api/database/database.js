@@ -8,6 +8,21 @@ const table = "link_shortener_table";
 export default class Database {
   static conn = null;
 
+  static async resetDatabase() {
+    const conn = await mysql.createConnection({
+      host: "mysql",
+      port: 3306,
+      user: "root",
+      password: "admin",
+      multipleStatements: true,
+    });
+
+    await conn.query(`
+      DROP DATABASE IF EXISTS ${database};
+      CREATE DATABASE ${database};
+    `);
+  }
+
   static async resetTable() {
     const conn = await mysql.createConnection({
       host: "mysql",

@@ -2,4 +2,4 @@ FROM nginx
 
 COPY . /usr/share/nginx/html
 
-CMD [ "-g daemon off;" ]
+CMD [ "nginx", "-g daemon off;" ]
