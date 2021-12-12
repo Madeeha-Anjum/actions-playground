@@ -1,9 +1,9 @@
 openapi: 3.0.1
 info:
-  title: DNS Frontdoor Backend
-  description: "This server is for the DNS Frontdoor"
+  title: Frontdoor
+  description: 'This server is for  Link shortner'
   contact:
-    email: pranav.bodawala@telus.com
+    email:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -13,9 +13,7 @@ servers:
 tags:
   - name: shortener
     description: Everything related to shortening link shortener
-    # externalDocs:
-    #   description: Jira Docs
-    #   url: http://jira.tsl.telus.com
+
 paths:
   /api/v1:
     get:
@@ -28,12 +26,12 @@ paths:
           description: Basic test to see if connection has been established
           content:
             application/json:
-              example: "Welcome!"
+              example: 'Welcome!'
   /api/v1/shorten:
     get:
       tags:
         - shortener
-      summary: "Shorten a url"
+      summary: 'Shorten a url'
       operationId: shorten
       responses:
         200:
@@ -41,23 +39,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ShortenedUrlInfo"
+                $ref: '#/components/schemas/ShortenedUrlInfo'
         400:
           description: Either longUrl/slug was not in the request OR longUrl is not a valid url OR slug is already in use
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BadRequestError"
+                $ref: '#/components/schemas/BadRequestError'
               examples:
-                "Long url and/or slug not found in request":
+                'Long url and/or slug not found in request':
                   value:
-                    message: "longUrl or slug not found in request body"
+                    message: 'longUrl or slug not found in request body'
                     code: 400
-                "Long url is not a valid url":
+                'Long url is not a valid url':
                   value:
                     message: "'{longUrl}' is not a valid url"
                     code: 400
-                "slug is already in use":
+                'slug is already in use':
                   value:
                     message: "'{slug}' is already in use"
                     code: 400
@@ -66,33 +64,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericServerError"
+                $ref: '#/components/schemas/GenericServerError'
   /api/v1/entries:
     get:
       tags:
         - shortener
-      summary: "Get all the entries in the database"
+      summary: 'Get all the entries in the database'
       operationId: getEntries
       responses:
         200:
-          description: "All the entries in the database"
+          description: 'All the entries in the database'
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ShortenedUrlInfo"
+                  $ref: '#/components/schemas/ShortenedUrlInfo'
         500:
           description: Something went wrong, check api logs
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericServerError"
+                $ref: '#/components/schemas/GenericServerError'
   /{slug}:
     get:
       tags:
         - shortener
-      summary: "Redirect to the long url"
+      summary: 'Redirect to the long url'
       operationId: Redirect
       parameters:
         - name: slug
@@ -107,7 +105,7 @@ paths:
           description: Redirected to the long url
           content:
             application/json:
-              example: "Redirect to long url"
+              example: 'Redirect to long url'
         404:
           description: Cannot find the slug in the database
           content:
@@ -117,7 +115,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "a1b2c3 does not exist"
+                    example: 'a1b2c3 does not exist'
                   code:
                     type: number
                     enum: [404]
@@ -129,13 +127,13 @@ components:
       properties:
         slug:
           type: string
-          example: "a1b2c3"
+          example: 'a1b2c3'
         shortUrl:
           type: string
-          example: "http://localhost:3000/a1b2c3"
+          example: 'http://localhost:3000/a1b2c3'
         longUrl:
           type: string
-          example: "http://google.com"
+          example: 'http://google.com'
     BadRequestError:
       type: object
       properties:
@@ -157,7 +155,7 @@ components:
       properties:
         message:
           type: string
-          example: "Something went wrong"
+          example: 'Something went wrong'
         code:
           type: number
           enum: [500]
