@@ -1,0 +1,91 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Link Shortener v2
+  description: It shortens links man idk
+  license:
+    name: We still gotta think of one, for now, the default is MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: http://localhost:3000/api/v2
+paths:
+  /:
+    get:
+      summary: Show API Docs
+      operationId: showDocs
+      responses:
+        200:
+          description: Shows the page you're on right now
+  /{slug}:
+    get:
+      summary: Redirect to long url
+      operationId: showPetById
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: The id of the shortened link
+          schema:
+            type: string
+      responses:
+        302:
+          description: Redirect to long url
+        404:
+          description: Cannot find a url that matches the slug
+
+  /api/v2/shorten:
+    post:
+      summary: Shorten a url
+      operationId: shorten
+      tags:
+        - API
+      requestBody:
+        description: All the info to shorten the link
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/url-slug"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Pet"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/PetForm"
+          text/plain:
+            schema:
+              type: string
+      responses:
+        302:
+          description: Redirect to long url
+        404:
+          description: Cannot find a url that matches the slug
+
+components:
+  schemas:
+    url-slug:
+      required:
+        - slug
+        - url
+      properties:
+        slug:
+          type: string
+          example: "abc"
+        url:
+          type: string
+          example: "http://google.com"
+
+    Pets:
+      type: array
+      items:
+        $ref: "#/components/schemas/Pet"
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
