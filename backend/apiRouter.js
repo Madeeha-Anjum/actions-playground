@@ -14,6 +14,8 @@ router.post("/shorten", async (req, res) => {
   //       message: `'${url}' is not a valid url`,
   //     },
   //   });
+
+  //   return;
   // }
 
   try {
