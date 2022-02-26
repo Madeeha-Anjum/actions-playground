@@ -13,6 +13,7 @@ await Database.connect();
 const app = express();
 const port = getRequiredEnv("PORT");
 
+// only allow a certain url to use this api so that when we put it into production, we don't get random people trying to use our api
 app.use(
   cors({
     origin: getRequiredEnv("ALLOWED_CORS_ORIGIN"),
@@ -24,7 +25,7 @@ app.use(express.json());
 
 // console log req and res in a pretty way
 morganBody(app); // shows long, pretty api logs
-// app.use(morgan("dev")); // shows shot, pretty api logs
+// app.use(morgan("dev")); // shows short, pretty api logs
 
 // serve api docs
 app.use("/", express.static("api-docs"));
@@ -32,7 +33,7 @@ app.use("/", express.static("api-docs"));
 // contains all the routes that start with /api/v2
 app.use("/api/v2", apiRouter);
 
-// Go to the shortened link
+// Redirect to the long url
 app.get("/:slug", async (req, res) => {
   const slug = req.params.slug;
 

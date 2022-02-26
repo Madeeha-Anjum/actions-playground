@@ -1,10 +1,20 @@
 import { Router } from "express";
+import validUrl from "valid-url";
 import Database from "./database.js";
 
 const router = Router();
 
 router.post("/shorten", async (req, res) => {
   const { url, slug } = req.body;
+
+  // if (validUrl.isWebUri(url)) {
+  //   res.status(400).send({
+  //     error: {
+  //       code: 400,
+  //       message: `'${url}' is not a valid url`,
+  //     },
+  //   });
+  // }
 
   try {
     await Database.addEntry({ slug, url });
