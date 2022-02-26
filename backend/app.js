@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import cors from "cors";
 import morganBody from "morgan-body"; // for long, pretty api logs
 // import morgan from "morgan"; // for short, pretty api logs
 
@@ -11,6 +12,12 @@ await Database.connect();
 
 const app = express();
 const port = getRequiredEnv("PORT");
+
+app.use(
+  cors({
+    origin: getRequiredEnv("ALLOWED_CORS_ORIGIN"),
+  })
+);
 
 // allow the app to parse json in the body
 app.use(express.json());
