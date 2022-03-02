@@ -53,7 +53,7 @@ app.get("/:slug", async (req, res) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`🚀 App Listening on Port: ${port}`);
+  console.log(`🚀 App Listening on http://localhost:${port}`);
 });
 
 const gracefulShutdownHandler = function gracefulShutdownHandler(signal) {
