@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*  CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* CSS initalize */
+@layer base {
+  body {
+    font-family: "Nunito Sans", sans-serif;
+    @apply text-base; /* text-size*/
+    @apply leading-6; /* line-height*/
+    @apply text-gray-900; /* text-color*/
+    @apply bg-gray-200; /* background-color*/
+  }
+
+  /* H1 responsive tag  */
+  h1 {
+    @apply text-h1;
+    @apply leading-8;
+  }
+}
