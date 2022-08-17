@@ -1,0 +1,1 @@
+Gaol:  Store docker image in Container registry
