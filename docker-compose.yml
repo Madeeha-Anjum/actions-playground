@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  app:
+    build: .
+    container_name: react-app-c
+    ports:
+      # EXPOSE the app's port to the host machine
+      - 3000:3000
+    volumes:
+      # bind mount the project folder to the container
+      - ./:/app
+      # create ananomouse voluem for the node moules
+      - /app/node_modules
+
+    stdin_open: true
+    tty: true

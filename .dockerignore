@@ -1,0 +1,2 @@
+# Dont copy the following to the image container 
+/node_modules
