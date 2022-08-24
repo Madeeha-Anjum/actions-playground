@@ -1,0 +1,17 @@
+ name: Publish
+    on:
+      push:
+        branches:
+          - master
+    # The following environment variables are required for the workflow to run
+    env:
+      REGISTRY: ghrc.io
+      IMAGE_NAME: ${{ github.repository.name }}
+
+    jobs:
+    name: echo
+    runs-on: ubuntu-latest
+    steps:
+      run: echo ${{ github.repository }}
+      run: echo ${{ github.repository.name }}
+      run: echo ${{ github.repository.owner }}
