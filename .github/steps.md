@@ -109,7 +109,7 @@ Step 4: - [ ] Create github actions to run the container on a server???
 3. Add the jobs,name and specify the steps to run
 **jobs are a series of tasks**
 `jobs`
-  `[job name]` - "build" or "publish" or "checkout"
+  `[job name]:` - "build" or "publish" or "checkout"
   **runs-on, is a new virtual machine (VM) hosted by GitHub where u can clone your repo and test your code**
   `runs-on: [job name]` - "ubuntu-latest" or "ubuntu-20.04"
   `permissions:`

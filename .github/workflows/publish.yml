@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - master
+      - main
 # The following environment variables are required for the workflow to run
 env:
   REGISTRY: ghrc.io
