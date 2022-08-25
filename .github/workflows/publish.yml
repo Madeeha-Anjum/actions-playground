@@ -15,6 +15,7 @@ jobs:
         run: echo "IMAGE_NAME=${OWNER,,}" >>${GITHUB_ENV}
         env:
           OWNER: '${{ github.repository }}'
+      - run: echo $IMAGE_NAME
       - run: echo 'Hello World'
       - run: echo ${{ github.actions.repository.name }}
       - run: echo ${{ github.actor}}
