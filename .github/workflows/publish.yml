@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - main
+      - 'main'
 # The following environment variables are required for the workflow to run
 env:
   REGISTRY: ghrc.io
@@ -13,7 +13,7 @@ jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello World"
+      - run: echo 'Hello World'
       - run: echo ${{ github.repository }}
       - run: echo ${{ github.repository.owner.login }}
       - run: echo ${{ github.event.pull_request.head.repo.owner.login }}
@@ -47,9 +47,9 @@ jobs:
         #   action: login
   pull-and-run-image-on-vultr:
     name: Pull and run image on Vultr
+    runs-on: ubuntu-latest
     needs:
       - build-and-push-image
-    runs-on: ubuntu-latest
     steps:
       - run: echo 'Next step is server connections'
 
