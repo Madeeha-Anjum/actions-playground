@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: set lower case owner name
-        run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+        run: echo "IMAGE_NAME_LC=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+
         env:
-          OWNER: '${{ github.repository }}'
-      - run: echo $IMAGE_NAME
+          IMAGE_NAME: '${{ github.repository }}'
+      - run: echo $IMAGE_NAME_LC
       - run: echo 'Hello World'
       - run: echo ${{ github.actions.repository.name }}
       - run: echo ${{ github.actor}}
@@ -25,7 +26,6 @@ jobs:
 
   build-and-push-image:
     name: Build and push image
-    needs: [echo]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -37,13 +37,13 @@ jobs:
           CR_PAT: ${{ secrets.CR_PAT }}
 
       - name: echo
-        run: echo $IMAGE_NAME
+        run: echo $IMAGE_NAME_LC
 
       - name: Build the latest image
-        run: docker build -t $REGISTRY/$IMAGE_NAME:latest .
+        run: docker build -t $REGISTRY/$IMAGE_NAME_LC:latest .
 
       - name: Push the image to the Github Container Registry
-        run: docker push $REGISTRY/$IMAGE_NAME:latest
+        run: docker push $REGISTRY/$IMAGE_NAME_LC:latest
 
         # Docker login
         # uses: actions/github-login@v3
