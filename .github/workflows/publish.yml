@@ -36,6 +36,9 @@ jobs:
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
 
+      - name: echo
+        run: echo $IMAGE_NAME
+
       - name: Build the latest image
         run: docker build -t $REGISTRY/$IMAGE_NAME:latest .
 
