@@ -7,8 +7,6 @@ on:
 env:
   REGISTRY: ghrc.io
 
-permissions:
-
 jobs:
   echo:
     runs-on: ubuntu-latest
