@@ -27,7 +27,7 @@ jobs:
 
       - name: Log in to the Github Container Registry
         run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
-        with:
+        env:
           CR_PAT: ${{ secrets.CR_PAT }}
 
       - name: Build the latest image
