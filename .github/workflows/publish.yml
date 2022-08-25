@@ -6,13 +6,15 @@ on:
 # The following environment variables are required for the workflow to run
 env:
   REGISTRY: ghrc.io
-  IMAGE_NAME: ${{ github.repository }}
-  OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
 
 jobs:
   echo:
     runs-on: ubuntu-latest
     steps:
+      - name: set lower case owner name
+        run: echo "IMAGE_NAME=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository }}'
       - run: echo 'Hello World'
       - run: echo ${{ github.actions.repository.name }}
       - run: echo ${{ github.actor}}
