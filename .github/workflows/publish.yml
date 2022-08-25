@@ -18,32 +18,44 @@ jobs:
       - run: echo ${{ github.repository.owner.login }}
       - run: echo ${{ github.event.pull_request.head.repo.owner.login }}
 
-  # build-and-push-image:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v3
+  build-and-push-image:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-  #     - name: Log in to the Github Container Registry
-  #     - run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
-  #       with:
-  #         CR_PAT: ${{ secrets.CR_PAT }}
+      - name: Log in to the Github Container Registry
+      - run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+        with:
+          CR_PAT: ${{ secrets.CR_PAT }}
 
-  #     - name: Build the image
-  #       run: docker build -t ${{ env.REGISTRY}}/${{ env.OWNER}}/${{ env.IMAGE_NAME }} .
+      - name: Build the latest image
+        run: docker build -t $REGISTRY/$IMAGE_NAME:latest .
 
-  #     - name: Push the image to the Github Container Registry
-  #       run: docker push ${{ env.IMAGE_NAME }}
+      - name: Push the image to the Github Container Registry
+        run: docker push $REGISTRY/$IMAGE_NAME:latest
 
-  # Docker login
-  # uses: actions/github-login@v3
-  # with:
-  #   token: ${{ secrets.GITHUB_TOKEN }}
-  #   registry: ${{ env.REGISTRY }}
-  #   organization: ${{ github.organization }}
-  #   repository: ${{ github.repository }}
-  #   tag: latest
-  #   action: login
-  # job2:
-  #   needs:
-  #     - build-and-push-image
+        # Docker login
+        # uses: actions/github-login@v3
+        # with:
+        #   token: ${{ secrets.GITHUB_TOKEN }}
+        #   registry: ${{ env.REGISTRY }}
+        #   organization: ${{ github.organization }}
+        #   repository: ${{ github.repository }}
+        #   tag: latest
+        #   action: login
+  pull-and-run-image-on-vultr:
+    name: Pull and run image on Vultr
+    needs:
+      - build-and-push-image
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Next step is server connections'
+
+      # - name: Pull the image from the Github Container Registry
+      #   run: docker pull $REGISTRY/$IMAGE_NAME:latest
+      # - name: Run the image
+      #   run: docker run -it $REGISTRY/$IMAGE_NAME:latest
+      # - name: Log out of the Github Container Registry
+      #   run: docker logout
