@@ -28,12 +28,15 @@ Step 4: - [ ] Create github actions to run the container on a server???
     Settings > Personal Access Tokens > Create a new token (read/write/delete packages)
     [Source:](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
     check: `docker login ghcr.io --username github-account` then paste your token 
-2. Create the docker image:  
-    `docker compose up`
-3. Tag the image  
+2. build the docker image:  
+    `docker compose up` - creates/builds/starts the docker image
+    `docker build .` - builds the docker image
+3. Tag the built image  
      - once your logged in your can tag  
     - view the docker images to find the id `docker images` 
     `docker tag image-id ghcr.io/github-account/image-name:image-version`
+2/3. **combined** 
+    `docker build -t ghcr.io/github-account/image-name:image-version .`
 4. Push image to the registry
     [source:](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
     - `docker push ghcr.io/OWNER/IMAGE_NAME:latest`
