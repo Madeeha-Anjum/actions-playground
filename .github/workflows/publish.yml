@@ -24,6 +24,7 @@ jobs:
 
   build-and-push-image:
     name: Build and push image
+    needs: [echo]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
