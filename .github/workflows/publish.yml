@@ -15,34 +15,35 @@ jobs:
     steps:
       - run: echo "Hello World"
       - run: echo ${{ github.repository }}
+      - run: echo ${{ github.repository.owner.login }}
       - run: echo ${{ github.event.pull_request.head.repo.owner.login }}
 
-  # build-and-push-image:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v3
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-  #     - name: Log in to the Github Container Registry
-  #     - run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
-  #       with:
-  #         CR_PAT: ${{ secrets.CR_PAT }}
+      - name: Log in to the Github Container Registry
+      - run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+        with:
+          CR_PAT: ${{ secrets.CR_PAT }}
 
-  #     - name: Build the image
-  #       run: docker build -t ${{ env.REGISTRY}}/${{ env.OWNER}}/${{ env.IMAGE_NAME }} .
+      - name: Build the image
+        run: docker build -t ${{ env.REGISTRY}}/${{ env.OWNER}}/${{ env.IMAGE_NAME }} .
 
-  #     - name: Push the image to the Github Container Registry
-  #       run: docker push ${{ env.IMAGE_NAME }}
+      - name: Push the image to the Github Container Registry
+        run: docker push ${{ env.IMAGE_NAME }}
 
-  # Docker login
-  # uses: actions/github-login@v3
-  # with:
-  #   token: ${{ secrets.GITHUB_TOKEN }}
-  #   registry: ${{ env.REGISTRY }}
-  #   organization: ${{ github.organization }}
-  #   repository: ${{ github.repository }}
-  #   tag: latest
-  #   action: login
-  # job2:
-  #   needs:
-  #     - build-and-push-image
+        # Docker login
+        # uses: actions/github-login@v3
+        # with:
+        #   token: ${{ secrets.GITHUB_TOKEN }}
+        #   registry: ${{ env.REGISTRY }}
+        #   organization: ${{ github.organization }}
+        #   repository: ${{ github.repository }}
+        #   tag: latest
+        #   action: login
+        job2:
+          needs:
+            - build-and-push-image
