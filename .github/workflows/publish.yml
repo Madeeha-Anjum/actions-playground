@@ -42,7 +42,8 @@ jobs:
           docker build -t $REGISTRY/$IMAGE_NAME:latest .
 
       - name: Log in to the Github Container Registry
-        run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+        run: |
+          echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
           docker push $REGISTRY/$IMAGE_NAME
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
