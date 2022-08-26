@@ -27,31 +27,25 @@ jobs:
       packages: write
     steps:
       - name: set lower case owner name
-        run: echo "IMAGE_NAME_LC=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+        run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
         env:
           IMAGE_NAME: '${{ github.repository }}'
 
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Log in to the Github Container Registry
-        run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
-        env:
-          CR_PAT: ${{ secrets.CR_PAT }}
-
       - name: echo
-        run: echo $IMAGE_NAME_LC
+        run: echo $IMAGE_NAME
 
       - name: Build the latest image
         run: |
-          docker build .
-          docker tag $IMAGE_NAME $REGISTRY/$IMAGE_NAME_LC:latest
+          docker build -t $REGISTRY/$IMAGE_NAME:latest .
 
-      - name: Push the image to the Github Container Registry
-        run: |
-          docker images
-          docker push --help
-          docker push $REGISTRY/$IMAGE_NAME_LC:latest
+      - name: Log in to the Github Container Registry
+        run: echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+          docker push $REGISTRY/$IMAGE_NAME:latest
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
 
         # uses: actions/github-login@v3
         # with:
