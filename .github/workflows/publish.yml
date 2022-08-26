@@ -49,7 +49,9 @@ jobs:
         run: |
           docker images
           docker push $REGISTRY/$IMAGE_NAME_LC:latest --all-tags
-
+        with:
+          context: .
+          push: true
         # uses: actions/github-login@v3
         # with:
         #   token: ${{ secrets.GITHUB_TOKEN }}
