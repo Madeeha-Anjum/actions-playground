@@ -43,12 +43,12 @@ jobs:
         run: echo $IMAGE_NAME_LC
 
       - name: Build the latest image
-        run: echo docker build -t $REGISTRY/$IMAGE_NAME_LC:latest .
+        run: docker build -t $REGISTRY/$IMAGE_NAME_LC:latest .
 
       - name: Push the image to the Github Container Registry
         run: |
           docker images
-          echo docker push  $REGISTRY/$IMAGE_NAME_LC:latest
+          docker push $REGISTRY/$IMAGE_NAME_LC:latest --all-tags
 
         # uses: actions/github-login@v3
         # with:
