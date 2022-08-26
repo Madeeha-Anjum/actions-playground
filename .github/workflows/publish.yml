@@ -49,7 +49,7 @@ jobs:
         run: |
           docker images
           docker push --help
-          docker push $REGISTRY/$IMAGE_NAME_LC:latest
+          docker image push $REGISTRY/$IMAGE_NAME_LC:latest
 
         # uses: actions/github-login@v3
         # with:
