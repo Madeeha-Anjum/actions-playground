@@ -48,10 +48,9 @@ jobs:
       - name: Push the image to the Github Container Registry
         run: |
           docker images
+          docker
           docker push $REGISTRY/$IMAGE_NAME_LC:latest
-        with:
-          context: .
-          push: true
+
         # uses: actions/github-login@v3
         # with:
         #   token: ${{ secrets.GITHUB_TOKEN }}
