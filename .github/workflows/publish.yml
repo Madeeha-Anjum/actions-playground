@@ -5,7 +5,7 @@ on:
       - 'main'
 # The following environment variables are required for the workflow to run
 env:
-  REGISTRY: ghrc.io
+  REGISTRY: ghcr.io
 jobs:
   echo:
     runs-on: ubuntu-latest
@@ -41,6 +41,8 @@ jobs:
           docker push $REGISTRY/$IMAGE_NAME
         env:
           CR_PAT: ${{ secrets.CR_PAT }}
+        with:
+          load: true
 
         # uses: actions/github-login@v3
         # with:
