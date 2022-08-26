@@ -26,8 +26,10 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Checkout/Lowercase/Build/Login/Push to Github Registry
+      - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Lowercase/Build/tag/login/push the latest image
         run: |
           echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
           docker build -t $REGISTRY/$IMAGE_NAME:latest .
