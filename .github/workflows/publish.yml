@@ -48,7 +48,7 @@ jobs:
       - name: Push the image to the Github Container Registry
         run: |
           docker images
-          docker push $REGISTRY/$IMAGE_NAME_LC:latest --all-tags
+          docker push $REGISTRY/$IMAGE_NAME_LC:latest
         with:
           context: .
           push: true
