@@ -26,17 +26,20 @@ jobs:
       contents: read
       packages: write
     steps:
+      - name: set lower case owner name
+        env:
+          IMAGE_NAME: '${{ github.repository }}'
+        run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Lowercase/Build/tag/login/push the latest image
         run: |
-          echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
           docker build -t $REGISTRY/$IMAGE_NAME:latest .
           echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
           docker push $REGISTRY/$IMAGE_NAME
         env:
-          IMAGE_NAME: '${{ github.repository }}'
           CR_PAT: ${{ secrets.CR_PAT }}
 
         # uses: actions/github-login@v3
