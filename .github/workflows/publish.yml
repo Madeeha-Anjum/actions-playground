@@ -26,8 +26,6 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: set lower case owner name
-
       - name: Checkout/Lowercase/Build/Login/Push to Github Registry
         uses: actions/checkout@v2
         run: |
