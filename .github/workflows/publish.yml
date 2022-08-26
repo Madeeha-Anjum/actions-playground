@@ -30,7 +30,8 @@ jobs:
 
       - name: Checkout/Lowercase/Build/Login/Push to Github Registry
         uses: actions/checkout@v2
-        run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+        run: |
+          echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
           docker build -t $REGISTRY/$IMAGE_NAME:latest .
           echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
           docker push $REGISTRY/$IMAGE_NAME
