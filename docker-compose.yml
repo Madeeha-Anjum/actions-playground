@@ -8,9 +8,8 @@ services:
       - 3000:3000
     volumes:
       # bind mount the project folder to the container
-      - ./:/app
+      - '.:/app'
       # create ananomouse voluem for the node moules
-      - /app/node_modules
-
-    stdin_open: true
-    tty: true
+      - '/app/node_modules'
+    environment:
+      CHOKIDAR_USEPOLLING: 'true'

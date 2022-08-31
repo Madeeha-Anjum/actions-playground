@@ -9,12 +9,11 @@ WORKDIR /app
 # copy package.json and package-lock.json to the container
 COPY package.json package-lock.json ./
 
-
 # run npm install in the container
 RUN npm install
 
 # copy the whole project to the container
-COPY . ./
+COPY . .
 
 EXPOSE 3000
 
