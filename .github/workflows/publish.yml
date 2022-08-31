@@ -50,6 +50,7 @@ jobs:
         #   repository: ${{ github.repository }}
         #   tag: latest
         #   action: login
+
   pull-and-run-image-on-vultr:
     name: Pull and run image on Vultr
     runs-on: ubuntu-latest
