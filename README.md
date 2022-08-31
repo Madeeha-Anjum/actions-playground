@@ -120,10 +120,11 @@ Step 4: Pull image from server and run
              # using custom PAT
              CR_PAT: ${{ secrets.CR_PAT }}
     ```
-## WAY 1 (USING GITHUB-TOKEN): 
+## WAY 2 (USING GITHUB-TOKEN): 
 - using the built in GITHUB TOKEN 
 - create `.github/workflows/publish.yml` in the root of the repository
 - add the following to the workflow:
+- ** NOTE: ** go to `packages` and `add the repo` to the packages and `set write permissions`
     ```yml 
     name: Publish
     on:
@@ -174,9 +175,9 @@ Step 4: Pull image from server and run
              CR_PAT: ${{ secrets.CR_PAT }}
     ```
 # WAY 3: GitHub Action to build and push Docker images with Buildx
- 
+[Source](https://docs.github.com/en/actions/publishing-packages/publishing-docker-images)
+- ** NOTE: ** go to `packages` and `add the repo` to the packages and `set write permissions`
  ```yml
- # Source: https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
 name: Create and publish a Docker image
 
 on:
@@ -239,9 +240,9 @@ jobs:
 
 
 
-========================================================================
+============================================================
 # HOW ON WORKFLOW FILES
-[Source:](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on)
+[Source](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on)
 1. Start the Actions file with a name
 **name means the name of the workflow**
 `name: [workflow name]`
@@ -259,64 +260,64 @@ jobs:
 3. Add the jobs,name and specify the steps to run
 **jobs are a series of tasks**
 `jobs`
-  `[job name]:` - "build" or "publish" or "checkout"
+ - `[job name]:` - "build" or "publish" or "checkout"
   **runs-on, is a new virtual machine (VM) hosted by GitHub where u can clone your repo and test your code**
-  `runs-on: [job name]` - "ubuntu-latest" or "ubuntu-20.04"
-  `permissions:`
+ - `runs-on: [job name]` - "ubuntu-latest" or "ubuntu-20.04"
+ - `permissions:`
     **modify the default permissions granted to the GITHUB_TOKEN**
-    `push:`
+   - `push:`
       `access: [job name]` - "read" or "write" or "delete"
-    `pull:`
+    -`pull:`
       `access: [job name]` - "read" or "write" or "delete"
-    `admin:`
+    - `admin:`
       `access: [job name]` - "read" or "write" or "delete"
-    `contents:`
+   - `contents:`
       `access: [job name]` - "read" or "write" or "delete"
-    `packages:`
+    -`packages:`
       `access: [job name]` - "read" or "write" or "delete"
-  `steps` - steps to run
-    `- name: [step name]`
-    `  uses: [step name]` - uses is the docker image 
-    `  run: [step name]` 
-    `  id: [id]` - unessasary 
-    `  with:`
-        `registry: [registry name]`
-        `username: [username]`
-        `password: [password]`
-        `image: [image name]`
-        `tag: [tag name]`
-        `port: [port number]`
-        `server: [server name]`
-        `server_ip: [server ip]`
-        `server_port: [server port]`
-         `context: [context name]`
-        `command: [command]`
-        `args: [args]`
-        `env: [env]`
-        `volumes: [volumes]`
-        `workdir: [workdir]`
-        `key: ~/.ssh/athena.key`
-        `host: athena`
-        `user: root`
-        `port: 22`
+  -`steps` - steps to run
+    - `- name: [step name]`
+    - `  uses: [step name]` - uses is the docker image 
+     -`  run: [step name]` 
+    - `  id: [id]` - unessasary 
+    - `  with:`
+        - `registry: [registry name]`
+        - `username: [username]`
+        - `password: [password]`
+        - `image: [image name]`
+        - `tag: [tag name]`
+        - `port: [port number]`
+        - `server: [server name]`
+        - `server_ip: [server ip]`
+        - `server_port: [server port]`
+        - `context: [context name]`
+        - `command: [command]`
+        - `args: [args]`
+        - `env: [env]`
+        - `volumes: [volumes]`
+        - `workdir: [workdir]`
+        - `key: ~/.ssh/athena.key`
+        - `host: athena`
+        - `user: root`
+        - `port: 22`
 
 **What is Uses?**
 - The uses is the docker image to run the step
-`uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38`
+    -`uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38`
 - The use is the checkout step to get the code from the repository
-`uses: actions/checkout@v3`
+    - `uses: actions/checkout@v3`
 - The use is the build step to build the image
-`uses: actions/build@v3`
+    - `uses: actions/build@v3`
 - The use is the publish step to push the image to the registry
-`uses: actions/publish@v3`
+    - `uses: actions/publish@v3`
 - The use is the check step to check the image is running
-`uses: actions/check@v3`
+    - `uses: actions/check@v3`
 - The use is the delete step to delete the image
-`uses: actions/delete@v3`
+    - `uses: actions/delete@v3`
 - The use is the metadata step to get the metadata of the image
-`uses: actions/metadata@v3`
+    - `uses: actions/metadata@v3`
 - The use is the run step to run the image
-`uses: actions/run@v3`
+  - `uses: actions/run@v3`
  
    
  
