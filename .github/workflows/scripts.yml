@@ -64,7 +64,7 @@ jobs:
           chmod 600 ~/.ssh/github-action
 
       - name: Login to Vultr using public key
-        run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
+        run: ssh -i ~/.ssh/github-action $USER@$HOSTNAME
 
       - name: Install Docker if not installed
         run: echo "Installing Docker"
