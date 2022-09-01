@@ -7,10 +7,9 @@ on:
 env:
   REGISTRY: ghcr.io
   PAT: ${{ secrets.CR_PAT }}
-
-  HOSTNAME: ${{ secret.VULTR_IP }}
-  USER: ${{ secret.VULTR_USER }}
-  SSH_KEY: ${{ secret.SSH_PRIVATE_KEY }}
+  HOSTNAME: ${{ secrets.VULTR_IP }}
+  USER: ${{ secrets.VULTR_USER }}
+  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 jobs:
   echo:
