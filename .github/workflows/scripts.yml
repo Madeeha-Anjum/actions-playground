@@ -18,36 +18,36 @@ jobs:
       - run: echo ${{ github.actor}} # => Madeeha-Anjum
       - run: echo ${{ github.repository }} # => Madeeha-Anjum/actions-playground
 
-  build-and-push-image:
-    name: Build and push image
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: set lower case owner name
-        env:
-          IMAGE_NAME: '${{ github.repository }}'
-        run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+  # build-and-push-image:
+  #   name: Build and push image
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #     - name: set lower case owner name
+  #       env:
+  #         IMAGE_NAME: '${{ github.repository }}'
+  #       run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
 
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v2
 
-      # - name: Log in to the Container registry
-      #   uses: docker/login-action@v2
-      #   with:
-      #     registry: ${{ env.REGISTRY }}
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
+  # - name: Log in to the Container registry
+  #   uses: docker/login-action@v2
+  #   with:
+  #     registry: ${{ env.REGISTRY }}
+  #     username: ${{ github.actor }}
+  #     password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build/tag/login/push the latest image
-        run: |
-          docker build -t $REGISTRY/$IMAGE_NAME:latest .
-          echo $PAT | docker login ghcr.io -u USERNAME --password-stdin
-          docker push $REGISTRY/$IMAGE_NAME
-        env:
-          # using custom PAT
-          CR_PAT: PAT
+  # - name: Build/tag/login/push the latest image
+  #   run: |
+  #     docker build -t $REGISTRY/$IMAGE_NAME:latest .
+  #     echo $PAT | docker login ghcr.io -u USERNAME --password-stdin
+  #     docker push $REGISTRY/$IMAGE_NAME
+  #   env:
+  #     # using custom PAT
+  #     CR_PAT: PAT
 
   pull-and-run-image-on-vultr:
     name: Pull and run image on Vultr
