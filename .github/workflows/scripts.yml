@@ -63,6 +63,9 @@ jobs:
           echo "$SSH_KEY" >> ~/.ssh/github-action
           chmod 600 ~/.ssh/github-action
 
+      - name: Remove Known Hosts
+        run: ssh-keyscan -R  hostname
+
       - name: Login to Vultr using public key
         run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
 
