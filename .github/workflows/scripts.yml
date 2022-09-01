@@ -58,9 +58,10 @@ jobs:
     steps:
       - name: SSH Command with key
         run: |
+          echo $USER@$HOSTNAME
           mkdir ~/.ssh
           echo "$SSH_KEY" >> ~/.ssh/github-action
-           chmod 600 ~/.ssh/github-action
+          chmod 600 ~/.ssh/github-action
 
       - name: Login to Vultr using public key
         run: -i ~/.ssh/github-action $USER@$HOSTNAME
