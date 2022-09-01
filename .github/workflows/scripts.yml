@@ -6,6 +6,12 @@ on:
 # The following environment variables are required for the workflow to run
 env:
   REGISTRY: ghcr.io
+  PAT: ${{ secrets.CR_PAT }}
+
+  HOSTNAME: ${{ secret.VULTR_IP }}
+  USER: ${{ secret.VULTR_USER }}
+  SSH_KEY: ${{ secret.SSH_PRIVATE_KEY }}
+
 jobs:
   echo:
     runs-on: ubuntu-latest
@@ -35,14 +41,14 @@ jobs:
       #     username: ${{ github.actor }}
       #     password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build/tag/login/push the latest image(Login Way2)
+      - name: Build/tag/login/push the latest image
         run: |
           docker build -t $REGISTRY/$IMAGE_NAME:latest .
-          echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+          echo $PAT | docker login ghcr.io -u USERNAME --password-stdin
           docker push $REGISTRY/$IMAGE_NAME
         env:
           # using custom PAT
-          CR_PAT: ${{ secrets.CR_PAT }}
+          CR_PAT: PAT
 
   pull-and-run-image-on-vultr:
     name: Pull and run image on Vultr
@@ -50,7 +56,31 @@ jobs:
     needs:
       - build-and-push-image
     steps:
-      - run: echo 'Next step is server connections'
+      - name: SSH Command with key
+      # SSH Command with key
+      - run: mkdir ~/.ssh
+      - run: 'echo "$SSH_KEY" >> ~/.ssh/github-action'
+      - run: chmod 600 ~/.ssh/github-action
+
+      - name: Login to Vultr using public key
+        run: -i ~/.ssh/github-action $USER@$HOSTNAME
+
+      - name: Install Docker if not installed
+        run: echo "Installing Docker"
+
+      - name: Pull image from Github Container registry
+        run: echo "PULL IMAGE"
+
+        # # https://github.com/marketplace/actions/ssh-remote-commands
+        # uses: appleboy/ssh-action@master
+        # with:
+        #   host: ${{ env.HOSTNAME }}
+        #   username: ${{ env.USER }}
+        #   key: ${{ env.SSH_KEY }}
+
+        # script: |
+        #   docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+        #   docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
 
       # - name: Pull the image from the Github Container Registry
       #   run: docker pull $REGISTRY/$IMAGE_NAME:latest

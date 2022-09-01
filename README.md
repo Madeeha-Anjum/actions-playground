@@ -1,6 +1,4 @@
-Playground for github actions and Container registry:
-
-# Small TUT
+# Playground/Small TUT for github actions and Container registry 
 
 **GitHub Packages**: hosting and managing packages(containers and other dependencies)
 -  integrate GitHub Packages with GitHub APIs, GitHub Actions, and webhooks to create an end-to-end DevOps workflow that includes your code, CI, and deployment solutions.
@@ -40,7 +38,7 @@ Step 4: Pull image from server and run
 4. Push image to the registry
     [source:](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
     - `docker push ghcr.io/OWNER/IMAGE_NAME:latest`
-5. Setup Vultr SSH
+5. Setup Vultr SSH (NOTE: the public key is added to the server when the vultr server is created )
     - Generate the key using `ssh-keygen -t ed25519 -C "your_email@example.com" `
     - Setup the config file
     **~/.ssh/config**
@@ -52,7 +50,7 @@ Step 4: Pull image from server and run
     IdentityFile ~/.ssh/athena.key
     ```
 6. Login to Vultr Server using SSH
-   - `ssh user@hostName` and type the user password 
+   - `ssh user@hostName`  
    - install docker on Ubunto 20.04
     - ` sudo apt  install docker.io`
     - `sudo snap install docker`
@@ -227,10 +225,23 @@ jobs:
  
 
 # AUTOMATED ACTIONS DEPLOYMENT STEPS PART 2 - SERVER: 
+1. Setup Vultr SSH (NOTE: the public key is added to the server when the vultr server is created )
+    - Generate the key using `ssh-keygen -t ed25519 -C "your_email@example.com" `
+    - Setup the config file
+    **~/.ssh/config**
+    ```yml
+    Host athena
+    HostName 2001:19f0:8001:21a:5400:04ff:fe13:6f89
+    User root
+    Port 22
+    IdentityFile ~/.ssh/athena.key
+    ```
+2. Register the Public key/host/user in the repository Actions Secrets 
+    - `Repo > Settings > Secrets > Actions > new repo secret`
+ 
+ 
 
-
-
-
+ 
 
 
 
