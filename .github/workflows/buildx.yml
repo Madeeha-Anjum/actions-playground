@@ -55,10 +55,16 @@ jobs:
     #   - build-and-push-image
     steps:
       - name: SSH command runner
+        id: ssh-id
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VULTR_IP }}
           username: ${{ secrets.VULTR_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            whoami
+          run: |
+            OUTPUT=$(docker --version | tail -1)
+            echo "::set-output name=OUTPUT::$OUTPUT"
+            echo "Hello world"
+      - name: Check if docker is installed
+        if: steps.ssh-id.outputs.OUTPUT  == ''
+        run: echo "Docker is installed"
