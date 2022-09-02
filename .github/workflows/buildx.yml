@@ -62,9 +62,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: IF
-        if: -x "$(command -v docker)"
+        if: '$(command -v docker)'
         run: echo "Docker is installed"
 
       - name: ELSE
-        if: false == echo "Docker is not installed"
+        if: false == '$(command -v docker)'
         run: echo "Docker is not installed"
