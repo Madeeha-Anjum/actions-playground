@@ -65,7 +65,8 @@ jobs:
 
       - name: Add known_hosts
         run: |
-          ssh-keyscan -t rsa $HOSTNAME >> ~/.ssh/known_hosts
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+        # ssh-keyscan -t rsa $HOSTNAME >> ~/.ssh/known_hosts
 
       - name: SSH into Vultr server using private key
         run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
