@@ -239,9 +239,36 @@ jobs:
 2. Register the Private key/host/user in the repository Actions Secrets 
     - `Repo > Settings > Secrets > Actions > new repo secret`
  
-3. 
+# WAY 1: Using Scripts 
+Another way: https://blog.benoitblanchon.fr/github-action-run-ssh-commands/
+```yaml 
+ pull-and-run-image-on-vultr:
+    name: Pull and run image on Vultr
+    runs-on: ubuntu-latest
+    # needs:
+    #   - build-and-push-image
 
- 
+    steps:
+      - name: SSH Command with key
+        run: |
+          echo $USER@$HOSTNAME
+          mkdir ~/.ssh
+          echo "$SSH_KEY" >> ~/.ssh/github-action
+          chmod 600 ~/.ssh/github-action
+
+      - name: Add known_hosts
+        run: |
+          ssh-keyscan $HOSTNAME >> ~/.ssh/known_hosts
+
+      - name: SSH into Vultr server using private key
+        run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
+```
+
+# WAY 2: Using github actions 
+appleby: https://github.com/marketplace/actions/ssh-remote-commands
+
+# WAY 3: Using github actions for Vultr
+ https://github.com/marketplace/actions/github-action-for-vultr-vultr-cli
 
 
 
