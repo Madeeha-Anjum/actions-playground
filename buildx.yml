@@ -77,7 +77,8 @@ jobs:
               sudo apt-get update
               sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin 
               
-              echo run image
+              echo pull image
               docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+              echo run image
               docker run -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
             fi
