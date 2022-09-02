@@ -62,12 +62,10 @@ jobs:
           mkdir ~/.ssh
           echo $SSH_KEY >> ~/.ssh/github-action
           chmod 600 ~/.ssh/github-action
-          chmod 600 /etc/ssh/ssh_known_hosts
 
       - name: Add known_hosts
         run: |
           ssh-keyscan -t rsa $HOSTNAME >> ~/.ssh/known_hosts
-          ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts
 
       - name: SSH into Vultr server using private key
         run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
