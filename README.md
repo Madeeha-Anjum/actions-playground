@@ -281,7 +281,7 @@ appleby: https://github.com/marketplace/actions/ssh-remote-commands
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             whoami 
-          if: docker version 
+          # if: docker version 
           run: echo docker version 
 ```
  
