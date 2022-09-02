@@ -107,20 +107,15 @@ jobs:
           #   docker pull $REGISTRY/$IMAGE_NAME:latest
           #   docker run -d -p 80:80 $REGISTRY/$IMAGE_NAME:latest
 
-      - name: run docker
-        id: run-docker
+      - name: docker check
         run: |
-          echo docker --version
-          OUTPUT=$(docker --version | tail -1) &&
-          echo "::set-output name=outcome::$OUTPUT"
-
-      - name: if installed
-        if: steps.run-docker.outcome == 1
-        run: echo "Docker is installed"
-
-      - name: if not installed
-        if: steps.run-docker.outcome  == 0
-        run: echo "Docker is not installed"
+          if [ -x "$(command -v docker)" ]; then
+            echo "Update docker"
+          # command
+          else
+            echo "Install docker"
+          # command
+          fi
 
       # - name: IF
       #   if: '$(command -v docker)'
