@@ -76,8 +76,8 @@ jobs:
             # command
             echo run image
             docker pull ghcr.io/madeeha-anjum/actions-playground:latest
-            docker images
             docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
+            docker ps -a
 
           else
             echo "Install docker"
@@ -89,6 +89,7 @@ jobs:
             
             echo run image
             docker pull ghcr.io/madeeha-anjum/actions-playground:latest
-            docker images
             docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
+            docker ps -a
+
           fi
