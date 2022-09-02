@@ -107,9 +107,23 @@ jobs:
             if [ -x "$(command -v docker)" ]; then
               echo "Update docker"
               # command
+              # run image
+              docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+              docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
+
+              
+
             else
               echo "Install docker"
               # command
+              # install docker on ubuntu 20.04
+              sudo apt-get update -y
+              sudo apt install docker.io
+              sudo snap install docker
+
+              # run image
+              docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+              docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
             fi
 
           #   docker pull $REGISTRY/$IMAGE_NAME:latest
