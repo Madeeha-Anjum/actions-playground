@@ -236,10 +236,10 @@ jobs:
     Port 22
     IdentityFile ~/.ssh/athena.key
     ```
-2. Register the Public key/host/user in the repository Actions Secrets 
+2. Register the Private key/host/user in the repository Actions Secrets 
     - `Repo > Settings > Secrets > Actions > new repo secret`
  
- 
+3. 
 
  
 
