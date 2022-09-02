@@ -63,7 +63,12 @@ jobs:
           echo $SSH_KEY >> ~/.ssh/github-action
           chmod 600 ~/.ssh/github-action
 
-      - name: Login to Vultr using public key
+      - name: Add known_hosts duing actions
+        run: |
+          ssh-keyscan -H github.com > /etc/ssh/ssh_known_hosts
+        # ssh-keyscan -t rsa $HOSTNAME >> ~/.ssh/known_hosts
+
+      - name: SSH into Vultr server using private key
         run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
 
       - name: Install Docker if not installed
