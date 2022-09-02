@@ -88,5 +88,5 @@ jobs:
             
             echo run image
             docker pull ghcr.io/madeeha-anjum/actions-playground:latest
-            docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
+            docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
           fi

@@ -61,7 +61,7 @@ Step 4: Pull image from server and run
 8. Run the image  
  [Source:](https://www.vultr.com/docs/how-to-use-docker-creating-your-first-docker-container/)
  - `docker run IMAGE_ID -p (Vultr port):(docker container[3000])`
-9. Check the server IP  to see your app live 
+9. Check the server IP to see your app live 
 
 # AUTOMATED ACTIONS DEPLOYMENT STEPS PART 1 - REGISTRY: 
 **GitHub Actions**
@@ -285,8 +285,31 @@ appleby: https://github.com/marketplace/actions/ssh-remote-commands
           run: echo docker version 
 ```
  
+# AUTOMATED ACTIONS DEPLOYMENT STEPS PART 3 - DOCKER: 
+- using github actions if statements to check if the docker is installed on the server
+```yml
+ - name: Run docker image
+        run: |
+          if [ -x "$(command -v docker)" ]; then
+            echo "Update docker"
+            # command
+            echo run image
+            docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+            docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
 
-
+          else
+            echo "Install docker"
+            # command
+            
+            echo install docker on ubuntu 20.04
+            sudo apt-get update
+            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin 
+            
+            echo run image
+            docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+            docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
+          fi
+```
 
 ============================================================
 # HOW ON WORKFLOW FILES
