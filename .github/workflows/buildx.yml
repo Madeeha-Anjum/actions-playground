@@ -9,50 +9,51 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  #   build-and-push-image:
-  #     runs-on: ubuntu-latest
-  #     permissions:
-  #       contents: read
-  #       packages: write
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
-  #     steps:
-  #       - name: Lower case github.repository
-  #         run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
-  #         env:
-  #           IMAGE_NAME: '${{ github.repository }}'
+    steps:
+      - name: Lower case github.repository
+        run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+        env:
+          IMAGE_NAME: '${{ github.repository }}'
 
-  #       - name: Checkout repository
-  #         uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  #       - name: Log in to the Container registry
-  #         uses: docker/login-action@v2
-  #         with:
-  #           registry: ${{ env.REGISTRY }}
-  #           username: ${{ github.actor }}
-  #           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-  #       - name: Extract metadata (tags, labels) for Docker
-  #         id: meta
-  #         uses: docker/metadata-action@v3
-  #         with:
-  #           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-  #           tags: |
-  #             type=ref,event=branch
-  #             type=ref,event=pr
-  #             type=semver,pattern={{version}}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
 
-  #       - name: Build and push Docker image
-  #         uses: docker/build-push-action@v3
-  #         with:
-  #           context: .
-  #           push: true
-  #           labels: ${{ steps.meta.outputs.labels }}
-  #           tags: ${{ steps.meta.outputs.tags }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+
   pull-and-run-image-on-vultr:
     name: Pull and run image on Vultr
     runs-on: ubuntu-latest
-    # needs:
-    #   - build-and-push-image
+    needs:
+      - build-and-push-image
     steps:
       - name: SSH command runner
         uses: appleboy/ssh-action@master
@@ -61,13 +62,24 @@ jobs:
           username: ${{ secrets.VULTR_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull $REGISTRY/$IMAGE_NAME:latest
-            docker run -d -p 80:80 $REGISTRY/$IMAGE_NAME:latest
+            if [ -x "$(command -v docker)" ]; then
+              echo "Update docker"
+              # command
+              echo run image
+              docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+              docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
 
-      # - name: IF
-      #   if: '$(command -v docker)'
-      #   run: echo "Docker is installed"
+              
 
-      # - name: ELSE
-      #   if: false == 'command -v docker'
-      #   run: echo "Docker is not installed"
+            else
+              echo "Install docker"
+              # command
+              
+              echo install docker on ubuntu 20.04
+              sudo apt-get update
+              sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin 
+              
+              echo run image
+              docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+              docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
+            fi
