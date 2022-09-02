@@ -103,9 +103,9 @@ jobs:
           host: ${{ secrets.VULTR_IP }}
           username: ${{ secrets.VULTR_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            docker pull $REGISTRY/$IMAGE_NAME:latest
-            docker run -d -p 80:80 $REGISTRY/$IMAGE_NAME:latest
+          # script: |
+          #   docker pull $REGISTRY/$IMAGE_NAME:latest
+          #   docker run -d -p 80:80 $REGISTRY/$IMAGE_NAME:latest
 
       - name: run docker
         id: run-docker
