@@ -76,6 +76,7 @@ jobs:
             # command
             echo run image
             docker pull ghcr.io/madeeha-anjum/actions-playground:latest
+            docker images
             docker run -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
 
           else
