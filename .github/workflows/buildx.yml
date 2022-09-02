@@ -61,10 +61,10 @@ jobs:
           username: ${{ secrets.VULTR_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - if: -x "$(command -v docker)"
-        name: IF
+      - name: IF
+        if: -x "$(command -v docker)"
         run: echo "Docker is installed"
 
-      - if: false == echo "Docker is not installed"
-        name: ELSE
+      - name: ELSE
+        if: false == echo "Docker is not installed"
         run: echo "Docker is not installed"
