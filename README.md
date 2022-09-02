@@ -266,11 +266,25 @@ Another way: https://blog.benoitblanchon.fr/github-action-run-ssh-commands/
 
 # WAY 2: Using github actions 
 appleby: https://github.com/marketplace/actions/ssh-remote-commands
-
-# WAY 3: Using github actions for Vultr
- https://github.com/marketplace/actions/github-action-for-vultr-vultr-cli
-
-
+```yml
+  pull-and-run-image-on-vultr:
+    name: Pull and run image on Vultr
+    runs-on: ubuntu-latest
+    # needs:
+    #   - build-and-push-image
+    steps:
+      - name: SSH command runner
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VULTR_IP }}
+          username: ${{ secrets.VULTR_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            whoami 
+          if: docker version 
+          run: echo docker version 
+```
+ 
 
 
 
