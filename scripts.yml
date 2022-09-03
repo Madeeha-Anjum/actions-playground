@@ -73,6 +73,7 @@ jobs:
 
       - name: SSH Command Manual
         run: |
+
           # Login to Vultr 
           ssh -i ~/.ssh/github-action $USER@$HOSTNAME
 
@@ -81,8 +82,7 @@ jobs:
           else
             echo "INSTALLING DOCKER"
             echo install docker on ubuntu 20.04
-            sudo apt-get update
-            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+            sudo snap install docker
           fi
 
           # print working directory
