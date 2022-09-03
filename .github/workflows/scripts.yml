@@ -67,10 +67,9 @@ jobs:
           ssh-keyscan $HOSTNAME >> ~/.ssh/known_hosts
 
       - name: SSH into Vultr server using private key
-        run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
-
-      - name: Run docker image
         run: |
+          ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
+
           if [ -x "$(command -v docker)" ]; then
             echo "Update docker"
             # command
