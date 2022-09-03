@@ -66,29 +66,37 @@ jobs:
         run: |
           ssh-keyscan $HOSTNAME >> ~/.ssh/known_hosts
 
+      - name: SSH Command Manual
+        run: |
+          ssh -i ~/.ssh/github-action $USER@$HOSTNAME
+          ls
+          pwd
+          docker pull $REGISTRY/$IMAGE_NAME
+          docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
+
       - name: SSH into Vultr server using private key
         run: |
           ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
           ls
           pwd
 
-          if [ -x "$(command -v docker)" ]; then
-            echo "Update docker"
-            # command
-            echo run image
-            docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
-            docker ps -a
+    # if [ -x "$(command -v docker)" ]; then
+    #   echo "Update docker"
+    #   # command
+    #   echo run image
+    #   docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
+    #   docker ps -a
 
-          else
-            echo "Install docker"
-            # command
-            
-            echo install docker on ubuntu 20.04
-            sudo apt-get update
-            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin 
-            
-            echo run image
-            docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
-            docker ps -a
+    # else
+    #   echo "Install docker"
+    #   # command
 
-          fi
+    #   echo install docker on ubuntu 20.04
+    #   sudo apt-get update
+    #   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+    #   echo run image
+    #   docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
+    #   docker ps -a
+
+    # fi
