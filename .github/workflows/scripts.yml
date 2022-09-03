@@ -74,10 +74,15 @@ jobs:
       - name: SSH Command Manual
         run: |
           ssh -i ~/.ssh/github-action $USER@$HOSTNAME
-          ls
-           
-          echo docker pull $REGISTRY/$IMAGE_NAME
-          docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
+            ls
+            # create a file on the server
+            touch test.txt
+            # pull the image
+            docker pull $REGISTRY/$IMAGE_NAME
+            # run the image
+            docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
+            # check if the container is running
+            docker ps
 
       - name: SSH into Vultr server using private key
         run: |
