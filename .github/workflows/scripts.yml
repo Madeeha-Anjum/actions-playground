@@ -73,29 +73,33 @@ jobs:
 
       - name: SSH Command Manual
         run: |
+          ssh -i ~/.ssh/github-action $USER@$HOSTNAME "docker pull $REGISTRY/$IMAGE_NAME:latest && docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME:latest"
+        # run: |
 
-          # Login to Vultr 
-          ssh -i ~/.ssh/github-action $USER@$HOSTNAME
+        #   # Login to Vultr
+        #   ssh -i ~/.ssh/github-action $USER@$HOSTNAME << EOF
 
-          if [ -x "$(command -v docker)" ]; then
-            echo "DOCKER IS INSTALLED"
-          else
-            echo "INSTALLING DOCKER"
-            echo install docker on ubuntu 20.04
-            sudo snap install docker
-          fi
+        #   if [ -x "$(command -v docker)" ]; then
+        #     echo "DOCKER IS INSTALLED"
+        #   else
+        #     echo "INSTALLING DOCKER"
+        #     echo install docker on ubuntu 20.04
+        #     sudo snap install docker
+        #   fi
 
-          # print working directory
-          pwd
+        #   # print working directory
+        #   pwd
 
-          # create a file on the server
-          touch test.txt
+        #   # create a file on the server
+        #   touch test.txt
 
-          # pull the image
-          docker pull $REGISTRY/$IMAGE_NAME
+        #   # pull the image
+        #   docker pull $REGISTRY/$IMAGE_NAME
 
-          # run the image
-          docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
+        #   # run the image
+        #   docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
 
-          # check if the container is running
-          docker ps
+        #   # check if the container is running
+        #   docker ps
+
+        #   EOF
