@@ -78,10 +78,10 @@ jobs:
             touch test.txt
 
             # pull the image
-            docker pull $REGISTRY/$IMAGE_NAME
+            docker pull ghcr.io/madeeha-anjum/actions-playground:latest
 
             # run the image
-            docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
+            docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
 
             # check if the container is running
             docker ps
