@@ -70,8 +70,8 @@ jobs:
         run: |
           ssh -i ~/.ssh/github-action $USER@$HOSTNAME
           ls
-          pwd
-          docker pull $REGISTRY/$IMAGE_NAME
+           
+          echo docker pull $REGISTRY/$IMAGE_NAME
           docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
 
       - name: SSH into Vultr server using private key
