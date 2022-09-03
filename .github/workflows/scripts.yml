@@ -73,40 +73,29 @@ jobs:
 
       - name: SSH Command Manual
         run: |
+          # Login to Vultr 
           ssh -i ~/.ssh/github-action $USER@$HOSTNAME
-            ls
-            # create a file on the server
-            touch test.txt
-            # pull the image
-            docker pull $REGISTRY/$IMAGE_NAME
-            # run the image
-            docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
-            # check if the container is running
-            docker ps
 
-      - name: SSH into Vultr server using private key
-        run: |
-          ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
-          ls
+          if [ -x "$(command -v docker)" ]; then
+            echo "DOCKER IS INSTALLED"
+          else
+            echo "INSTALLING DOCKER"
+            echo install docker on ubuntu 20.04
+            sudo apt-get update
+            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+          fi
+
+          # print working directory
           pwd
 
-    # if [ -x "$(command -v docker)" ]; then
-    #   echo "Update docker"
-    #   # command
-    #   echo run image
-    #   docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
-    #   docker ps -a
+          # create a file on the server
+          touch test.txt
 
-    # else
-    #   echo "Install docker"
-    #   # command
+          # pull the image
+          docker pull $REGISTRY/$IMAGE_NAME
 
-    #   echo install docker on ubuntu 20.04
-    #   sudo apt-get update
-    #   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+          # run the image
+          docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
 
-    #   echo run image
-    #   docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
-    #   docker ps -a
-
-    # fi
+          # check if the container is running
+          docker ps
