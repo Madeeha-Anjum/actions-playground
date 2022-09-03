@@ -55,6 +55,11 @@ jobs:
     needs:
       - build-and-push-image
     steps:
+      - name: set lower case owner name
+        env:
+          IMAGE_NAME: '${{ github.repository }}'
+        run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+
       - name: SSH Command with key
         run: |
           echo $USER@$HOSTNAME
