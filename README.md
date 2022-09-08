@@ -13,16 +13,16 @@
 
 # GitHub Container Registry with github actions DEPLOYMENT: 
 **Steps to auto deployment** 
-Step 1: Create Docker file 
-Step 2: Create docker-composer file 
-Step 3: Push the docker image to github container registers 
-Step 4: Pull image from server and run 
+Step 1: Create Docker file    
+Step 2: Create docker-composer file    
+Step 3: Push the docker image to github container registers    
+Step 4: Pull image from server and run   
 
 # MANUAL DEPLOYMENT STEPS
 
 **Push the docker image to github container registers**
 [Source](https://codefresh.io/docs/docs/integrations/docker-registries/github-container-registry/)
-1. - [ ] A personal access Token
+1. A personal access Token
     Settings > Personal Access Tokens > Create a new token (read/write/delete packages)
     [Source:](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
     check: `docker login ghcr.io --username github-account` then paste your token 
@@ -32,9 +32,9 @@ Step 4: Pull image from server and run
 3. Tag the built image  
      - once your logged in your can tag  
     - view the docker images to find the id `docker images` 
-    `docker tag image-id ghcr.io/github-account/image-name:image-version`
+    `docker tag image-id ghcr.io/github-account/image-name:image-version`   
+- **OR Step 2 and Step 3 combined** 
     `docker build -t ghcr.io/github-account/image-name:image-version .`
-2/3. **OR 2/3 combined** 
 4. Push image to the registry
     [source:](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
     - `docker push ghcr.io/OWNER/IMAGE_NAME:latest`
@@ -52,20 +52,19 @@ Step 4: Pull image from server and run
 6. Login to Vultr Server using SSH
    - `ssh user@hostName`  
    - install docker on Ubunto 20.04
-    - ` sudo apt  install docker.io`
     - `sudo snap install docker`
     - check `docker --version`
 7. Pull an image
     - ` docker pull ghcr.io/OWNER/IMAGE_NAME:latest`
     - Check `docker images`
 8. Run the image  
- [Source:](https://www.vultr.com/docs/how-to-use-docker-creating-your-first-docker-container/)
- - `docker run IMAGE_ID -p (Vultr port):(docker container[3000])`
+    - [Source](https://www.vultr.com/docs/how-to-use-docker-creating-your-first-docker-container/)
+    - `docker run IMAGE_ID -p (Vultr port):(docker container[3000])`
 9. Check the server IP to see your app live 
 
 # AUTOMATED ACTIONS DEPLOYMENT STEPS PART 1 - REGISTRY: 
 **GitHub Actions**
-[Source](https://codefresh.io/docs/docs/integrations/github-actions/)
+- [Source](https://codefresh.io/docs/docs/integrations/github-actions/)
 - Reusable workflows
 - Can use then in codefresh pipelines  
 ## WAY 1 (USING PAT-personal access token): 
@@ -121,8 +120,8 @@ Step 4: Pull image from server and run
 ## WAY 2 (USING GITHUB-TOKEN): 
 - using the built in GITHUB TOKEN 
 - create `.github/workflows/publish.yml` in the root of the repository
+- **NOTE for Github Token** go to `packages` and `add the repo` to the packages and `set write permissions`
 - add the following to the workflow:
-- ** NOTE: ** go to `packages` and `add the repo` to the packages and `set write permissions`
     ```yml 
     name: Publish
     on:
@@ -170,7 +169,7 @@ Step 4: Pull image from server and run
     ```
 # WAY 3: GitHub Action to build and push Docker images with Buildx
 [Source](https://docs.github.com/en/actions/publishing-packages/publishing-docker-images)
-- ** NOTE: ** go to `packages` and `add the repo` to the packages and `set write permissions`
+- **NOTE for github token:** go to `packages` and `add the repo` to the packages and `set write permissions`
  ```yml
 name: Create and publish a Docker image
 
