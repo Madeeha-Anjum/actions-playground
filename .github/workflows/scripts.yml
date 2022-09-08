@@ -78,6 +78,8 @@ jobs:
           # Check if Docker is installed on the server
           if [ -x "$(command -v docker)" ]; then
             echo "DOCKER IS INSTALLED"
+              # stop any running containers 
+              docker kill $(docker ps -q)
           else
             echo "INSTALLING DOCKER"
             echo install docker on ubuntu 20.04

@@ -277,6 +277,7 @@ run: |
     # Check if Docker is installed on the server
     if [ -x "$(command -v docker)" ]; then
       echo "DOCKER IS INSTALLED"
+      docker kill $(docker ps -q)
     else
       echo "INSTALLING DOCKER"
       echo install docker on ubuntu 20.04
@@ -314,6 +315,7 @@ appleby: https://github.com/marketplace/actions/ssh-remote-commands
 
             if [ -x "$(command -v docker)" ]; then
               echo "DOCKER IS INSTALLED"
+              docker kill $(docker ps -q)
             else
               echo "INSTALLING DOCKER"
               echo install docker on ubuntu 20.04
