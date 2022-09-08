@@ -261,7 +261,38 @@ Another way: https://blog.benoitblanchon.fr/github-action-run-ssh-commands/
           ssh-keyscan $HOSTNAME >> ~/.ssh/known_hosts
 
       - name: SSH into Vultr server using private key
-        run: ssh -T -i ~/.ssh/github-action $USER@$HOSTNAME
+        run: | 
+```
+**Run commands inside the server options:**
+1. inline with quotes "" (Hard to read)
+```yml
+run: |
+    ssh -i ~/.ssh/github-action $USER@$HOSTNAME "docker pull $REGISTRY/$IMAGE_NAME:latest && docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME:latest"
+
+```
+3. EOF (Easier to read)
+```yml
+  run: |
+    ssh -i ~/.ssh/github-action $USER@$HOSTNAME << EOF
+
+    # Check if Docker is installed on the server
+    if [ -x "$(command -v docker)" ]; then
+      echo "DOCKER IS INSTALLED"
+    else
+      echo "INSTALLING DOCKER"
+      echo install docker on ubuntu 20.04
+      sudo snap install docker
+    fi
+
+
+    # Pull the image 
+    docker pull $REGISTRY/$IMAGE_NAME:latest
+
+    # run the image
+    docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
+
+    EOF
+
 ```
 
 # WAY 2: Using github actions 
@@ -280,36 +311,24 @@ appleby: https://github.com/marketplace/actions/ssh-remote-commands
           username: ${{ secrets.VULTR_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            whoami 
-          # if: docker version 
-          run: echo docker version 
-```
- 
-# AUTOMATED ACTIONS DEPLOYMENT STEPS PART 3 - DOCKER: 
-- using github actions if statements to check if the docker is installed on the server
-```yml
- - name: Run docker image
-        run: |
-          if [ -x "$(command -v docker)" ]; then
-            echo "Update docker"
-            # command
-            echo run image
-            docker pull ghcr.io/madeeha-anjum/actions-playground:latest
-            docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
+            # Run server commands here 
 
-          else
-            echo "Install docker"
-            # command
-            
-            echo install docker on ubuntu 20.04
-            sudo apt-get update
-            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin 
-            
-            echo run image
+            if [ -x "$(command -v docker)" ]; then
+              echo "DOCKER IS INSTALLED"
+            else
+              echo "INSTALLING DOCKER"
+              echo install docker on ubuntu 20.04
+              sudo snap install docker
+            fi
+
+            # pull the image
             docker pull ghcr.io/madeeha-anjum/actions-playground:latest
-            docker run -d -p 80:80 ghcr.io/madeeha-anjum/actions-playground:latest
-          fi
+
+            # run the image
+            docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
+           
 ```
+  
 
 ============================================================
 # HOW ON WORKFLOW FILES

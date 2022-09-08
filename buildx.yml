@@ -71,17 +71,8 @@ jobs:
               sudo snap install docker
             fi
 
-            # print working directory
-            pwd
-
-            # create a file on the server
-            touch test.txt
-
             # pull the image
             docker pull ghcr.io/madeeha-anjum/actions-playground:latest
 
             # run the image
             docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
-
-            # check if the container is running
-            docker ps
