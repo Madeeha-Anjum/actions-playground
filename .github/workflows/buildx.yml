@@ -62,7 +62,6 @@ jobs:
           username: ${{ secrets.VULTR_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-
             if [ -x "$(command -v docker)" ]; then
               echo "DOCKER IS INSTALLED"
             else
