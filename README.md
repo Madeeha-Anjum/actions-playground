@@ -290,7 +290,8 @@ run: |
 
     # run the image
     docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
-
+# exit 
+    exit
     EOF
 
 ```
@@ -327,7 +328,8 @@ appleby: https://github.com/marketplace/actions/ssh-remote-commands
 
             # run the image
             docker run -d -p 80:3000 ghcr.io/madeeha-anjum/actions-playground:latest
-           
+           # exit 
+            exit
 ```
   
 
