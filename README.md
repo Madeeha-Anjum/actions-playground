@@ -106,7 +106,7 @@ Step 4: Pull image from server and run
            run: echo "IMAGE_NAME=${IMAGE_NAME,,}" >>${GITHUB_ENV}
 
          - name: Checkout Repository
-           uses: actions/checkout@v2
+           uses: actions/checkout@v3
         # LOGIN WAY #1
          - name: Build/tag/login/push the latest image 
            run: |
@@ -153,7 +153,7 @@ Step 4: Pull image from server and run
            uses: actions/checkout@v2
           # LOGIN WAY 2
          - name: Log in to the Container registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -197,7 +197,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -205,7 +205,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
