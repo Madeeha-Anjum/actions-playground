@@ -92,6 +92,8 @@ jobs:
           # run the image
           docker run -d -p 80:3000 $REGISTRY/$IMAGE_NAME
 
+          #  add --name to name the the container 
+
           # exit 
           exit
           EOF
