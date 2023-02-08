@@ -27,6 +27,9 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v2
       - uses: google-github-actions/auth@v1
