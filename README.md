@@ -25,11 +25,10 @@ Topics:
 **Step 3:** Create a service account
 
 **Step 4:** Grant this service account access to the project
+        - workload identity user *
+**Step 5:** Create Key for the service account
 
-         - Compute Admin
-         - workload identity user *
-
-**Step 5:** Copy the service account email address
+**Step 6:** Copy the service account email address
 
 service-id@exalted-booster-377120.iam.gserviceaccount.com
 
@@ -37,28 +36,28 @@ note:we don't need a key for this service account because we will use workload i
 
 ---
 
-**Step: 6**: Create a workload identity pool
+**Step: 7**: Create a workload identity pool
 
-**Step: 7**: Create a workload identity provider
+**Step: 8**: Create a workload identity provider
 
          - Provider type: OIDC
          - Issuer URL:  <https://token.actions.githubusercontent.com>
 
-**Step: 8**: Copy the identity provider Url: <https://iam.googleapis.com/projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id>
+**Step: 9**: Copy the identity provider Url: <https://iam.googleapis.com/projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id>
 
 ---
 
-**Step: 9**: Configure provider attributes
+**Step: 10**: Configure provider attributes
 
          - google.subject = assertion.sub # identity of the user or service that is executing the Github Actions
 
-**Step 10**: Select the workload identity provider you created in **step 7** Grant Access to the service account
+**Step 11**: Select the workload identity provider you created in **step 7** Grant Access to the service account
 
        - Select the service account you created in **step3** - Paste the OIDC provider URL you copied in**step 8 **in the Workload Identity Provider field
        - format type: JSON
 ---
 
-**Step 11**: Create a workflow file  in your repository
+**Step 12**: Create a workflow file  in your repository
 
          - .github/workflows/googleworkload.yml
 
