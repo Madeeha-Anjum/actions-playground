@@ -53,6 +53,8 @@ jobs:
         run: "gcloud info"
       - name: go into compute engine instance and run a command
         run: |
+          # print the file 
+          cat ${{ steps.auth.outputs.credentials_file_path }}
           gcloud auth activate-service-account --key-file="${{ steps.auth.outputs.credentials_file_path }}"
           gcloud config set project exalted-booster-377120
           gcloud compute ssh --zone=us-central1-c playground --command="echo 'hello world'"
