@@ -26,6 +26,10 @@ Topics:
 
 **Step 4:** Grant this service account access to the project
         - workload identity user *
+        - serviceAccountUser
+
+- Note if you missed one and need to add it later got to IAM select the account and add the role
+
 **Step 5:** Create Key for the service account
 
 **Step 6:** Copy the service account email address

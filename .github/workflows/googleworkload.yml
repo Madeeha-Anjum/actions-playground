@@ -10,6 +10,8 @@
 # Step 3: Create a service account
 # Step 4: Grant this service account access to the project
 #          - workload identity user *
+#          - serviceAccountUser
+# Note if you missed one and need to add it later got to IAM select the account and add the role
 # Step 5: Create a key for this service account
 # Step 6: Copy the service account email address:
 # service-id@exalted-booster-377120.iam.gserviceaccount.com
@@ -51,4 +53,6 @@ jobs:
         run: "gcloud info"
       - name: go into compute engine instance and run a command
         run: |
+          gcloud auth activate-service-account --key-file="${{ steps.auth.outputs.credentials_file_path }}"
+          gcloud config set project exalted-booster-377120
           gcloud compute ssh --zone=us-central1-c playground --command="echo 'hello world'"
