@@ -48,3 +48,6 @@ jobs:
 
       - name: "Use gcloud CLI"
         run: "gcloud info"
+      - name: go into compute engine instance and run a command
+        run: |
+          gcloud compute ssh --zone=us-central1-a playground --command="echo 'hello world'"
