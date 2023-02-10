@@ -81,8 +81,8 @@ jobs:
         with:
           instance_name: "playground"
           zone: "us-central1-c"
-          ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}
+          ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
           command: |
-            echo "Hello World"
+            echo 'Hello World'
             # print server info
             uname -a
