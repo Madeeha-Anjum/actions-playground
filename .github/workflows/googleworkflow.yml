@@ -21,8 +21,8 @@ jobs:
 
       - name: "Login using ssh"
         run: |
+          echo ${{secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND}} | sed 's/./& /g'    
           gcloud compute ssh playground --ssh-key-file ${{secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND}} --quiet --tunnel-through-iap
-          echo "The credentials file is located at: $GOOGLE_APPLICATION_CREDENTIALS"
 
       # - id: "compute-ssh"
       #   uses: "google-github-actions/ssh-compute@v0"
