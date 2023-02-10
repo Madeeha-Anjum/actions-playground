@@ -51,20 +51,11 @@ jobs:
           workload_identity_provider: projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id
           service_account: service-id@exalted-booster-377120.iam.gserviceaccount.com
 
-      - name: Deploy to Google Cloud Compute Engine
+      - name: HOW TO USE THE CREDENTIALS
         run: |
-          echo "Deploying to Google Cloud Compute Engine"
-          # check if the service account is authenticated
-          gcloud auth list
-          # check the permissions of the service account
-          gcloud projects get-iam-policy exalted-booster-377120 --flatten="bindings[].members" --format='table(bindings.role)' --filter="bindings.members:
-
-        # uses:
-        #   google-github-actions/deploy-cloudrun@main
-        # with:
-        #   service: service-id
-        #   image: gcr.io/exalted-booster-377120/service-id
-        #   credentials: ${{ steps.auth.outputs.credentials_file }}
-        #   platform: managed
-        #   region: us-central1
-        #   allow-unauthenticated: true
+          echo "The credentials file is located at: $GOOGLE_APPLICATION_CREDENTIALS"
+          echo "The credentials file contains the following:"
+          cat $GOOGLE_APPLICATION_CREDENTIALS
+          echo "The id token is located at: $GOOGLE_ID_TOKEN"
+          echo "The id token contains the following:"
+          cat $GOOGLE_ID_TOKEN
