@@ -16,9 +16,6 @@ jobs:
           workload_identity_provider: projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id
           service_account: service-id@exalted-booster-377120.iam.gserviceaccount.com
 
-      - name: "Set up Cloud SDK"
-        uses: "google-github-actions/setup-gcloud@v1"
-
       - id: "compute-ssh"
         uses: "google-github-actions/ssh-compute@v0"
         with:
