@@ -26,7 +26,7 @@ jobs:
 
       - name: Run gcloud compute ssh
         run: |
-          gcloud compute ssh ${{env.GCP_INSTANCE}} --project=${{env.GCP_PROJECT}} --zone=${{env.GCP_ZONE}} --ssh-key-file=${{secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND}} --troubleshoot --tunnel-through-iap --quiet --command uname -a
+          gcloud compute ssh ${{env.GCP_INSTANCE}} --project=${{env.GCP_PROJECT}} --zone=${{env.GCP_ZONE}} --ssh-key-file=${{secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND}}  --tunnel-through-iap --quiet --command uname -a
 
       - id: "compute-ssh"
         uses: "google-github-actions/ssh-compute@v0"
