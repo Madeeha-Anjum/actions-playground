@@ -54,7 +54,7 @@ jobs:
       - name: Deploy to Google Cloud Compute Engine
         run: |
           echo "Deploying to Google Cloud Compute Engine"
-          # gcloud compute instances list --zone=us-central1-a
+          gcloud compute instances list --zone=us-central1-a
 
         # uses:
         #   google-github-actions/deploy-cloudrun@main
