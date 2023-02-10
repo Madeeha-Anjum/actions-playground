@@ -66,6 +66,5 @@ jobs:
       - id: "gcloud"
         name: "gcloud"
         run: |-
-          gcloud secrets versions access "latest" --secret "my-secret"
           gcloud compute instances list
           gcloud ssh --zone us-central1-c playground --command "echo 'Hello World!'"
