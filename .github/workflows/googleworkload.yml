@@ -67,4 +67,4 @@ jobs:
       - id: "gcloud"
         name: "gcloud"
         run: |-
-          gcloud ssh --zone us-central1-c playground --command "echo 'Hello World!'"
+          gcloud compute ssh --zone us-central1-c playground --command "echo 'Hello World!'"
