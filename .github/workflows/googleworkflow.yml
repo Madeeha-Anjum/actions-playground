@@ -16,13 +16,18 @@ jobs:
           workload_identity_provider: projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id
           service_account: service-id@exalted-booster-377120.iam.gserviceaccount.com
 
+      # - name: "Set up Cloud SDK"
+      #   uses: "google-github-actions/setup-gcloud@v1"
+
+      # - name: "Login using ssh"
+      #   run: |
+      #     gcloud compute ssh playground --ssh-key-file ${{secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND}} --quiet --tunnel-through-iap
+      #     echo "The credentials file is located at: $GOOGLE_APPLICATION_CREDENTIALS"
+
       - id: "compute-ssh"
         uses: "google-github-actions/ssh-compute@v0"
         with:
           instance_name: "playground"
           zone: "us-central1-c"
           ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
-          command: |
-            echo 'Hello World'
-            # print server info
-            uname -a
+          command: "echo 'Hello World'"
