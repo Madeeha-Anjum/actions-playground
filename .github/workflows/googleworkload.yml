@@ -51,12 +51,17 @@ jobs:
           workload_identity_provider: projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id
           service_account: service-id@exalted-booster-377120.iam.gserviceaccount.com
 
-      - name: "Use gcloud CLI"
-        run: "gcloud info"
-      - name: go into compute engine instance and run a command
+      - name: Deploy to Google Cloud Compute Engine
         run: |
-          # print the file 
-          echo ${{ steps.auth.outputs.credentials_file_path }}
-          gcloud auth activate-service-account --key-file="${{ steps.auth.outputs.credentials_file_path }}"
-          gcloud config set project exalted-booster-377120
-          gcloud compute ssh --zone=us-central1-c playground --command="echo 'hello world'"
+          echo "Deploying to Google Cloud Compute Engine"
+          # gcloud compute instances list --zone=us-central1-a
+
+        # uses:
+        #   google-github-actions/deploy-cloudrun@main
+        # with:
+        #   service: service-id
+        #   image: gcr.io/exalted-booster-377120/service-id
+        #   credentials: ${{ steps.auth.outputs.credentials_file }}
+        #   platform: managed
+        #   region: us-central1
+        #   allow-unauthenticated: true
