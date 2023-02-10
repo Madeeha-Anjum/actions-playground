@@ -44,6 +44,7 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v3
+      # https://github.com/google-github-actions/auth
       - uses: google-github-actions/auth@v1
         id: auth
         with:
@@ -56,6 +57,15 @@ jobs:
           echo "The credentials file is located at: $GOOGLE_APPLICATION_CREDENTIALS"
           echo "The credentials file contains the following:"
           cat $GOOGLE_APPLICATION_CREDENTIALS
-          echo "The id token is located at: $GOOGLE_ID_TOKEN"
-          echo "The id token contains the following:"
-          cat $GOOGLE_ID_TOKEN
+
+      # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+
+      # Now you can run gcloud commands authenticated as the impersonated service account.
+      - id: "gcloud"
+        name: "gcloud"
+        run: |-
+          gcloud secrets versions access "latest" --secret "my-secret"
+          gcloud compute instances list
+          gcloud ssh --zone us-central1-c playground --command "echo 'Hello World!'"
