@@ -27,8 +27,9 @@ jobs:
       - id: "compute-ssh"
         uses: "google-github-actions/ssh-compute@v0"
         with:
-          instance_name: "playground"
-          zone: "us-central1-c"
+          project_id: ${{ env.GCP_PROJECT }}
+          instance_name: ${{ env.GCP_INSTANCE }}
+          zone: ${{ env.GCP_ZONE }}
           ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
           flags: "--troubleshoot --tunnel-through-iap"
           command: "uname -a"
