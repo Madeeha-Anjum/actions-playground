@@ -9,7 +9,7 @@
 # Step 2: Create a project
 # Step 3: Create a service account
 # Step 4: Grant this service account access to the project
-#          - workload identity user *
+#          - workload identity user
 #          - serviceAccountUser
 # Note if you missed one and need to add it later got to IAM select the account and add the role
 # Step 5: Create a key for this service account
@@ -62,12 +62,26 @@ jobs:
       # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v1"
+      # Now you can run gcloud commands authenticated as the impersonated service account on this spawn VM.
 
-      # Now you can run gcloud commands authenticated as the impersonated service account.
+      # The secrets.GCP_SSH_PRIVATE_KEY is the private key used for accessing the instance over SSH, while $GOOGLE_APPLICATION_CREDENTIALS is the path to a Google Cloud service account key file used to authenticate as a service account.
+
+      # generate ssh key
+      #  2 ways to generate the key way one is ssh-keygen and way 2 is to download gloud on your local machine and run the command to genrate the key
+      #   ssh-keygen -t ed25519 -f C:\Users\madeeha\.ssh\my-gcloud-key-playground -C maadeeeehaa
+      #  add the pub key to the compute engine instance
+      #  add the private key to the github secrets
+
       - id: "compute-ssh"
         uses: "google-github-actions/ssh-compute@v0"
         with:
           instance_name: "playground"
           zone: "us-central1-c"
+          ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}
           command: |
-            gcloud compute ssh --zone us-central1-c playground --command "echo 'Hello World'"
+            echo "Hello World"
+            # pull docker hello world image and run it
+            docker pull hello-world
+            docker run hello-world
+            docker ps -a
+            exit

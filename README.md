@@ -25,7 +25,7 @@ Topics:
 **Step 3:** Create a service account
 
 **Step 4:** Grant this service account access to the project
-        - workload identity user *
+        - workload identity user
         - serviceAccountUser
 
 - Note if you missed one and need to add it later got to IAM select the account and add the role
