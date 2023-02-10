@@ -1,0 +1,31 @@
+name: Deploy to Google Cloud Compute Engine
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: google-github-actions/auth@v1
+        id: auth
+        with:
+          create_credentials_file: "true"
+          workload_identity_provider: projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id
+          service_account: service-id@exalted-booster-377120.iam.gserviceaccount.com
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+
+      - id: "compute-ssh"
+        uses: "google-github-actions/ssh-compute@v0"
+        with:
+          instance_name: "playground"
+          zone: "us-central1-c"
+          ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
+          command: |
+            echo 'Hello World'
+            # print server info
+            uname -a
