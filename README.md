@@ -27,6 +27,8 @@ Topics:
 **Step 4:** Grant this service account access to the project
         - workload identity user
         - serviceAccountUser
+        - Service Usage Admin
+        - Compute Instance Admin
 
 - Note if you missed one and need to add it later got to IAM select the account and add the role
 
