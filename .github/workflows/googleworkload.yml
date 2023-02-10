@@ -68,7 +68,11 @@ jobs:
 
       # generate ssh key
       #  2 ways to generate the key way one is ssh-keygen and way 2 is to download gloud on your local machine and run the command to genrate the key
-      #   ssh-keygen -t ed25519 -f C:\Users\madeeha\.ssh\my-gcloud-key-playground -C maadeeeehaa
+
+      # https://cloud.google.com/compute/docs/connect/create-ssh-keys#windows-10-or-later
+
+      #  ssh-keygen -t rsa -b 2048 -f C:\Users\madeeha\.ssh\my-gcloud-key-playground -C maadeeeehaa
+
       #  add the pub key to the compute engine instance
       #  add the private key to the github secrets
 
@@ -80,8 +84,5 @@ jobs:
           ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}
           command: |
             echo "Hello World"
-            # pull docker hello world image and run it
-            docker pull hello-world
-            docker run hello-world
-            docker ps -a
-            exit
+            # print server info
+            uname -a
