@@ -71,4 +71,5 @@ jobs:
           #  pull and run nginx image from docker hub
           docker pull nginx
           docker run -d -p 80:80 nginx
+          docker ps -a
           exit
