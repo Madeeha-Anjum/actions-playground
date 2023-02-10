@@ -54,6 +54,12 @@ jobs:
       - name: Deploy to Google Cloud Compute Engine
         run: |
           echo "Deploying to Google Cloud Compute Engine"
+          # check if the service account is authenticated
+          gcloud auth list
+          # check the permissions of the service account
+          gcloud projects get-iam-policy exalted-booster-377120 --flatten="bindings[].members" --format='table(bindings.role)' --filter="bindings.members:
+
+
           gcloud compute instances list --zones=us-central1-c
 
         # uses:
