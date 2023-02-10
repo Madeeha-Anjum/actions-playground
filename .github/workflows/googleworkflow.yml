@@ -24,15 +24,11 @@ jobs:
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v1"
 
-      - name: Run gcloud compute ssh
-        run: |
-          gcloud compute ssh ${{env.GCP_INSTANCE}} --project=${{env.GCP_PROJECT}} --zone=${{env.GCP_ZONE}} --ssh-key-file=${{secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND}}  --tunnel-through-iap --quiet --command uname -a
-
       - id: "compute-ssh"
         uses: "google-github-actions/ssh-compute@v0"
         with:
           instance_name: "playground"
           zone: "us-central1-c"
           ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
-          options: ""
+          options: "--troubleshoot --tunnel-through-iap"
           command: "uname -a"
