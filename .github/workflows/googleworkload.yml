@@ -64,12 +64,10 @@ jobs:
         uses: "google-github-actions/setup-gcloud@v1"
 
       # Now you can run gcloud commands authenticated as the impersonated service account.
-      - id: "gcloud"
-        name: "gcloud"
-        run: |-
-          gcloud compute ssh --zone us-central1-c playground --command "echo 'Hello World!'"
-          #  pull and run nginx image from docker hub
-          docker pull nginx
-          docker run -d -p 80:80 nginx
-          docker ps -a
-          exit
+      - id: "compute-ssh"
+        uses: "google-github-actions/ssh-compute@v0"
+        with:
+          instance_name: "playground"
+          zone: "us-central1-c"
+          command: |
+            gcloud compute ssh --zone us-central1-c playground --command "echo 'Hello World'"
