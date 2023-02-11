@@ -1,4 +1,4 @@
-name: Deploy to Google Cloud Compute Engine
+name: Deploy to GCP Compute Engine
 on: push
 
 env:

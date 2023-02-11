@@ -1,0 +1,53 @@
+name: Deploy to Google Cloud Compute Engine
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      # https://github.com/google-github-actions/auth
+      - uses: google-github-actions/auth@v1
+        # Configure Workload Identity Federation via a credentials file.
+        id: auth
+        with:
+          create_credentials_file: "true"
+          workload_identity_provider: projects/377961128619/locations/global/workloadIdentityPools/pool/providers/provider-id
+          service_account: service-id@exalted-booster-377120.iam.gserviceaccount.com
+
+      - name: HOW TO USE THE CREDENTIALS
+        run: |
+          echo "The credentials file is located at: $GOOGLE_APPLICATION_CREDENTIALS"
+          echo "The credentials file contains the following:"
+          cat $GOOGLE_APPLICATION_CREDENTIALS
+
+      # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+      # Now you can run gcloud commands authenticated as the impersonated service account on this spawn VM.
+
+      # The secrets.GCP_SSH_PRIVATE_KEY is the private key used for accessing the instance over SSH, while $GOOGLE_APPLICATION_CREDENTIALS is the path to a Google Cloud service account key file used to authenticate as a service account.
+
+      # generate ssh key
+      #  2 ways to generate the key way one is ssh-keygen and way 2 is to download gloud on your local machine and run the command to genrate the key
+
+      # https://cloud.google.com/compute/docs/connect/create-ssh-keys#windows-10-or-later
+
+      #  ssh-keygen -t rsa -b 2048 -f C:\Users\madeeha\.ssh\my-gcloud-key-playground -C maadeeeehaa
+
+      #  add the pub key to the compute engine instance
+      #  add the private key to the github secrets
+
+      - id: "compute-ssh"
+        uses: "google-github-actions/ssh-compute@v0"
+        with:
+          instance_name: "playground"
+          zone: "us-central1-c"
+          ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
+          command: |
+            echo 'Hello World'
+            # print server info
+            uname -a
