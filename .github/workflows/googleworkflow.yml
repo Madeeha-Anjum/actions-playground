@@ -37,9 +37,9 @@ jobs:
             echo "Hello World" > /tmp/hello.txt
             cat /tmp/hello.txt
             #  Create docker network 
-            docker network create --driver bridge my-network
+            sudo docker network create --driver bridge my-network
             #  Link the nginx container to the network
-            docker run -p 80:80 -d --name my-nginx --network my-network nginx
+            sudo docker run -p 80:80 -d --name my-nginx --network my-network nginx
 
       #  view the output of the command above
       - id: "test"
