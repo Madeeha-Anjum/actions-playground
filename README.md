@@ -70,6 +70,13 @@ note:we don't need a key for this service account because we will use workload i
 
          - .github/workflows/googleworkload.yml
 
+**Step 14** Firewall rules:
+    - allow-ingress-from-iap
+    - Ingress
+    - Apply to all
+    - IP ranges: 35.235.240.0/20
+    - tcp:22, 3389
+
 ## Github Packages/Github Container Registry
 
 **GitHub Packages**: hosting and managing packages(containers and other dependencies)

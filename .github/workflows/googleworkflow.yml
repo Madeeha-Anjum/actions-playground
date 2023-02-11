@@ -31,7 +31,7 @@ jobs:
           instance_name: ${{ env.GCP_INSTANCE }}
           zone: ${{ env.GCP_ZONE }}
           ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
-          flags: "--troubleshoot --tunnel-through-iap"
+          # flags: "--troubleshoot --tunnel-through-iap"
           command: "echo Hello world"
       # Example of using the output
       - id: "test"
