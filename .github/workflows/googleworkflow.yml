@@ -36,10 +36,10 @@ jobs:
             echo "Hello World"
             echo "Hello World" > /tmp/hello.txt
             cat /tmp/hello.txt
-            # sudo apt-get update
-            # sudo apt-get install docker.io
+
             sudo docker pull nginx
-            sudo docker run nginx -d -p 80:80
+            sudo docker run -d -p 80:80 nginx --name nginx
+
             exit
 
       #  view the output of the command above
