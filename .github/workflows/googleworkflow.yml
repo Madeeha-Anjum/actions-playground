@@ -32,7 +32,11 @@ jobs:
           zone: ${{ env.GCP_ZONE }}
           ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
           # flags: "--troubleshoot --tunnel-through-iap"
-          command: "echo Hello world"
+          command: |
+            echo "Hello World"
+            echo "Hello World" > /tmp/hello.txt
+            cat /tmp/hello.txt
+
       # Example of using the output
       - id: "test"
         run: |-
