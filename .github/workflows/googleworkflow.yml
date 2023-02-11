@@ -36,11 +36,10 @@ jobs:
             echo "Hello World"
             echo "Hello World" > /tmp/hello.txt
             cat /tmp/hello.txt
-
-            sudo docker pull nginx
-            sudo docker run -d -p 80:80 nginx --name nginx
-
-            exit
+            #  Create docker network 
+            docker network create --driver bridge my-network
+            #  Link the nginx container to the network
+            docker run -p 80:80 -d --name my-nginx --network my-network nginx
 
       #  view the output of the command above
       - id: "test"
