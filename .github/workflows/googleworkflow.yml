@@ -32,8 +32,4 @@ jobs:
           zone: ${{ env.GCP_ZONE }}
           ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
           flags: "--troubleshoot --tunnel-through-iap"
-          command: |
-            sudo apt-get update 
-            sudo apt-get install -y docker.io
-            sudo docker pull hello-world
-            sudo docker run hello-world
+          command: "uname -a"
