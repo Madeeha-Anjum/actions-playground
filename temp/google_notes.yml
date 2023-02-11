@@ -32,8 +32,10 @@
 #        - Paste the OIDC provider URL you copied in step 8 in the Workload Identity Provider field
 #        - format type: JSON
 
-# -------------------------------------------------------------------------------------------------------------------------------
-# Step 12: Create a workflow file (Below is an example workflow file)
+# Step 12:  Enable Cloud Identity-Aware Proxy API
+#        - Go to API & Services > Library
+#        - Enable Cloud Identity-Aware Proxy  API
+# Step 13: Create a workflow file (Below is an example workflow file)
 
 name: Deploy to Google Cloud Compute Engine
 on: push

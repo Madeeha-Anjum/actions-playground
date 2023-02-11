@@ -62,8 +62,11 @@ note:we don't need a key for this service account because we will use workload i
        - Select the service account you created in **step3** - Paste the OIDC provider URL you copied in**step 8 **in the Workload Identity Provider field
        - format type: JSON
 ---
+**Step 12**:  Enable Cloud Identity-Aware Proxy API
+      - Go to API & Services > Library
+      - Enable Cloud Identity-Aware Proxy API
 
-**Step 12**: Create a workflow file  in your repository
+**Step 13**: Create a workflow file  in your repository
 
          - .github/workflows/googleworkload.yml
 
