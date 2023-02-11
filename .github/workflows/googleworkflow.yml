@@ -37,7 +37,13 @@ jobs:
             echo "Hello World" > /tmp/hello.txt
             cat /tmp/hello.txt
 
-      # Example of using the output
+            # install pull and run docker image from docker hub
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo docker pull hello-world
+            sudo docker run hello-world
+
+      #  view the output of the command above
       - id: "test"
         run: |-
           echo '${{ steps.compute-ssh.outputs.stdout }}'
