@@ -25,10 +25,11 @@ Topics:
 **Step 3:** Create a service account
 
 **Step 4:** Grant this service account access to the project
-        - workload identity user
-        - serviceAccountUser
-        - Service Usage Admin
-        - Compute Instance Admin
+         - Compute Instance Admin (v1)
+         - IAP-secured Tunnel User
+         - Service Account User
+         - Service Usage Admin
+         - Workload Identity User
 
 - Note if you missed one and need to add it later got to IAM select the account and add the role
 
