@@ -32,18 +32,7 @@ jobs:
           zone: ${{ env.GCP_ZONE }}
           ssh_private_key: "${{ secrets.GCP_SSH_PRIVATE_KEY_PLAYGROUND }}"
           flags: "--troubleshoot --tunnel-through-iap"
-          command: |
-
-            sudo apt-get install -y docker.io
-
-            # pull the hello world image
-            docker pull hello-world
-
-            # run the image
-            docker run -d -p 80:80 hello world
-
-            # exit 
-            exit
+          command: "echo Hello world"
       # Example of using the output
       - id: "test"
         run: |-
