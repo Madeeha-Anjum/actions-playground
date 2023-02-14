@@ -24,6 +24,9 @@ jobs:
       - name: "Set up Cloud SDK"
         uses: "google-github-actions/setup-gcloud@v1"
 
+      - name: read my instances
+        run: gcloud compute instances list
+
       - id: "compute-ssh"
         uses: "google-github-actions/ssh-compute@v0"
         with:
@@ -36,10 +39,14 @@ jobs:
             echo "Hello World"
             echo "Hello World" > /tmp/hello.txt
             cat /tmp/hello.txt
+
+            docker rm -f my-nginx
+
             #  Create docker network 
             sudo docker network create --driver bridge my-network
-            #  Link the nginx container to the network
-            sudo docker run -p 80:80 -d --name my-nginx --network my-network nginx
+
+            #  Link the nginx container to the network and bind mount to html
+            sudo docker run -d -p 80:80 --name my-nginx --network my-network -v ~/my-nginx-html:/usr/share/nginx/html nginx
 
       #  view the output of the command above
       - id: "test"
